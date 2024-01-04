@@ -27,5 +27,18 @@ namespace Financas.Api.Controllers
                 id
             });
         }
+
+        [HttpPost("autenticar")] //api/contas/autenticar
+        public IActionResult Autenticar()
+        {
+            return Ok();
+        }
+
+        [HttpGet("obter-dados")] //api/contas/obter-dados
+        public IActionResult ObterDados()
+        {
+            return Ok("Sistema de finanças tá ON!");
+        }
+
     }
 }
