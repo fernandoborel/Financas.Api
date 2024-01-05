@@ -7,5 +7,14 @@ namespace Financas.Domain.Interfaces.Repositories
     /// </summary>
     public interface IContaRepository : IBaseRepository<Conta>
     {
+        /// <summary>
+        /// buscar o login
+        /// </summary>
+        Task<Conta> GetAsync(string login);
+
+        /// <summary>
+        /// buscar o usuário
+        /// </summary>
+        Task<Conta> GetAsync(string login, string senha);
     }
 }

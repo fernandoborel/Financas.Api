@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using System.Net;
 
-namespace Financas.Api.Extensions
+namespace Financas.Api.Middlewares
 {
     /// <summary>
     /// Middleware para tratamento global de exceções do projeto
@@ -26,7 +26,7 @@ namespace Financas.Api.Extensions
         {
             try
             {
-                // executando a requisição
+                //executando a requisição
                 await _requestDelegate(httpContext);
             }
             catch (ApplicationException e)
@@ -62,6 +62,7 @@ namespace Financas.Api.Extensions
 
             errorViewModel.HttpStatus = httpContext.Response.StatusCode;
             httpContext.Response.ContentType = "application/json";
+
             await httpContext.Response.WriteAsync(JsonConvert.SerializeObject(errorViewModel));
         }
     }

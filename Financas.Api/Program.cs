@@ -1,4 +1,5 @@
 using Financas.Api.Extensions;
+using Financas.Api.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +11,7 @@ builder.Services.AddRouting(map => map.LowercaseUrls = true);
 
 //extensions
 builder.Services.AddSwaggerConfig();
+builder.Services.AddJwtBearer(builder.Configuration);
 builder.Services.AddMongoDB(builder.Configuration);
 builder.Services.AddDependencyInjection();
 builder.Services.AddCorsConfig();

@@ -11,5 +11,18 @@ namespace Financas.Infra.Data.Repositories
     {
         //construtor
         public ContaRepository(IMongoDatabase database) : base(database) { }
+
+        public async Task<Conta> GetAsync(string login)
+        {
+            var filter = Builders<Conta>.Filter.Eq("Login", login);
+            return await Collection.Find(filter).FirstOrDefaultAsync();
+        }
+
+        public async Task<Conta> GetAsync(string login, string senha)
+        {
+            var filter = Builders<Conta>.Filter.Eq("Login", login)
+                & Builders<Conta>.Filter.Eq("Senha", senha);
+            return await Collection.Find(filter).FirstOrDefaultAsync();
+        }
     }
 }

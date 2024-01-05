@@ -1,4 +1,5 @@
-﻿using Financas.Domain.Dtos;
+﻿using Financas.Api.Security;
+using Financas.Domain.Dtos;
 using Financas.Domain.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,15 +11,17 @@ namespace Financas.Api.Controllers
     {
         //atributo
         private readonly IContaDomainService _contaDomainService;
+        private readonly JwtBearerSecurity _jwtBearerSecurity;
 
         //construtor
-        public ContasController(IContaDomainService contaDomainService)
+        public ContasController(IContaDomainService contaDomainService, JwtBearerSecurity jwtBearerSecurity)
         {
             _contaDomainService = contaDomainService;
+            _jwtBearerSecurity = jwtBearerSecurity;
         }
 
         [HttpPost("criar")]//api/contas/criar
-        public async Task<IActionResult> Criar(CriarContaDto dto)
+        public async Task<IActionResult> Criar([FromForm] CriarContaDto dto)
         {
             var id = await _contaDomainService.Criar(dto);
             return StatusCode(201, new
@@ -29,16 +32,17 @@ namespace Financas.Api.Controllers
         }
 
         [HttpPost("autenticar")] //api/contas/autenticar
-        public IActionResult Autenticar()
+        public async Task<IActionResult> Autenticar([FromBody] AutenticarContaDto dto)
         {
-            return Ok();
-        }
+            var result = await _contaDomainService.Autenticar(dto);
 
-        [HttpGet("obter-dados")] //api/contas/obter-dados
-        public IActionResult ObterDados()
-        {
-            return Ok("Sistema de finanças tá ON!");
+            return StatusCode(200, new
+            {
+                mensagem = "Pessoa autenticada com sucesso!",
+                result,
+                accessToken = _jwtBearerSecurity.GenerateToken(result.Id.Value),
+                expiration = _jwtBearerSecurity.GetExpiration()
+            });
         }
-
     }
 }

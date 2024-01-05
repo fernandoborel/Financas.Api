@@ -8,5 +8,7 @@ namespace Financas.Domain.Interfaces.Services
         /// Método para criar uma conta
         /// </summary>
         Task<Guid> Criar(CriarContaDto dto);
+
+        Task<DadosContaDto> Autenticar(AutenticarContaDto dto);
     }
 }
