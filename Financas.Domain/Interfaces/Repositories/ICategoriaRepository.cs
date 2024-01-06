@@ -1,4 +1,5 @@
-﻿using Financas.Domain.Models;
+﻿using Financas.Domain.Dtos;
+using Financas.Domain.Models;
 
 namespace Financas.Domain.Interfaces.Repositories
 {
@@ -7,5 +8,6 @@ namespace Financas.Domain.Interfaces.Repositories
     /// </summary>
     public interface ICategoriaRepository : IBaseRepository<Categoria>
     {
+        Task <List<DadosCategoriaDto>> GetAllAsync();
     }
 }

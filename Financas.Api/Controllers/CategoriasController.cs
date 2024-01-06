@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Financas.Domain.Dtos;
+using Financas.Domain.Interfaces.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Financas.Api.Controllers
@@ -8,16 +10,32 @@ namespace Financas.Api.Controllers
     [ApiController]
     public class CategoriasController : ControllerBase
     {
-        [HttpPost("criar")]//api/categorias/criar
-        public IActionResult Criar()
+        private readonly ICategoriaDomainService _categoriaDomainService;
+
+        public CategoriasController(ICategoriaDomainService categoriaDomainService)
         {
-            return Ok();
+            _categoriaDomainService = categoriaDomainService;
+        }
+
+        [HttpPost("criar")]//api/categorias/criar
+        public async Task<IActionResult> Criar([FromBody] CriarCategoriaDto dto)
+        {
+            var autorId = User.Identity.Name;
+
+            var id = await _categoriaDomainService.Criar(dto, Guid.Parse(autorId));
+
+            return StatusCode(201, new
+            {
+                mensagem = "Categoria cadastrada com sucesso!",
+                id
+            });
         }
         
         [HttpGet("obter-todos")]//api/categorias/obter-todos
-        public IActionResult ObterTodos()
+        public async Task<IActionResult> ObterTodos()
         {
-            return Ok();
+            var result = await _categoriaDomainService.Consultar();
+            return StatusCode(200, result);
         }
     }
 }

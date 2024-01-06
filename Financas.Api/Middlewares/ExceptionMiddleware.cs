@@ -1,5 +1,6 @@
 ﻿using Financas.Api.Models;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using System.Net;
 
 namespace Financas.Api.Middlewares
@@ -63,7 +64,12 @@ namespace Financas.Api.Middlewares
             errorViewModel.HttpStatus = httpContext.Response.StatusCode;
             httpContext.Response.ContentType = "application/json";
 
-            await httpContext.Response.WriteAsync(JsonConvert.SerializeObject(errorViewModel));
+            var settings = new JsonSerializerSettings
+            {
+                ContractResolver = new CamelCasePropertyNamesContractResolver()
+            };
+
+            await httpContext.Response.WriteAsync(JsonConvert.SerializeObject(errorViewModel, settings));
         }
     }
 }

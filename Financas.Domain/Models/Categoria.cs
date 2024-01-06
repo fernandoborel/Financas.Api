@@ -9,5 +9,7 @@
         public string? Nome { get; set; }
         public string? Descricao { get; set; }
         public List<Guid>? ListaDeContas {  get; set; }
+
+        public Guid? AutorId { get; set; }
     }
 }

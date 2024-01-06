@@ -16,6 +16,7 @@ namespace Financas.Api.Extensions
             #region Serviços de domínio
             
             services.AddScoped<IContaDomainService, ContaDomainService>();
+            services.AddScoped<ICategoriaDomainService, CategoriaDomainService>();
             
             #endregion
             
