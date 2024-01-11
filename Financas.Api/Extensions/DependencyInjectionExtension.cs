@@ -17,6 +17,7 @@ namespace Financas.Api.Extensions
             
             services.AddScoped<IContaDomainService, ContaDomainService>();
             services.AddScoped<ICategoriaDomainService, CategoriaDomainService>();
+            services.AddScoped<IOperacoesDomainService, OperacoesDomainService>();
             
             #endregion
             
@@ -24,6 +25,7 @@ namespace Financas.Api.Extensions
             
             services.AddScoped<IContaRepository, ContaRepository>();
             services.AddScoped<ICategoriaRepository,CategoriaRepository>();
+            services.AddScoped<IOperacoesContaRepository, OperacoesContaRepository>();
             
             #endregion
             

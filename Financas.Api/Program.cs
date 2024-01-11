@@ -12,8 +12,8 @@ builder.Services.AddRouting(map => map.LowercaseUrls = true);
 //extensions
 builder.Services.AddSwaggerConfig();
 builder.Services.AddJwtBearer(builder.Configuration);
-builder.Services.AddMongoDB(builder.Configuration);
 builder.Services.AddDependencyInjection();
+builder.Services.AddMongoDB(builder.Configuration);
 builder.Services.AddCorsConfig();
 
 var app = builder.Build(); //deploy
